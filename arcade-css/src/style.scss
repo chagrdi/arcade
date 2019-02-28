@@ -1,6 +1,11 @@
 $noir: #000000;
+$header: #F79D5C;
 
 body{
    background-color: $noir;
    color: antiquewhite;
+}
+
+.header{
+    color: $header;
 }

@@ -14,7 +14,7 @@ class Header extends React.Component{
                             <div class="side capleft"></div>
                             <div class="side capfront">
                                 <div class="invader1 small"></div>
-                                <div class="logo">SPACE<br />INVADERS</div>
+                                <div class="logo">CSS<br />GANG</div>
                                 <div class="invader1 small"></div>
                             </div>
                             <div class="side capbottom"></div>
@@ -39,7 +39,7 @@ class Header extends React.Component{
                                       </div>
                                     </div>
                                     <div className="gameover">GAME OVER</div>
-                                    <div className="insertcoin">INSERT COIN</div>
+                                    <div className="insertcoin">COUCOU THOMAS</div>
                                 </div>
                             </div>
                             <div className="side paneltop">
@@ -59,13 +59,13 @@ class Header extends React.Component{
                     </div>
                     <div class="box main">
                         <div class="side mainright">
-                            <div className="logo">SPACE<br />INVADERS</div>
+                            <div className="logo">CSS<br />GANG</div>
                             <div className="invader2 big"></div>
                         </div>
                         <div className="side mainright inner"></div>
                         <div className="side mainleft inner"></div>
                         <div className="side mainleft">
-                            <div className="logo">SPACE<br />INVADERS</div>
+                            <div className="logo">CSS<br />GANG</div>
                             <div className="invader2 big"></div>
                         </div>
                         <div className="side mainbottom"></div>

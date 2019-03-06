@@ -440,3 +440,21 @@ footer {
     top: 10%;
   }
 }
+
+// insert coin
+
+.Coin {
+  height: 90px;
+	color: white;
+	padding-top: 50px;
+  width: 100%;
+  text-align: center;
+  margin: auto;
+  font-size: 40px;
+  line-height: 40px;
+  letter-spacing: 5px;
+  text-shadow: -2px 0 0 #fdff2a, -4px 0 0 #df4a42, 2px 0 0 #91fcfe, 4px 0 0 #4405fc;
+  animation: blink 1s steps(4, start) infinite;
+}
+
+

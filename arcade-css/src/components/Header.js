@@ -3,9 +3,6 @@ import React from "react";
 class Header extends React.Component{
     render(){
         return(
-          
-    
-        
 <div class="container">
   <div class="arcade-machine">
     <div class="shadow"></div>

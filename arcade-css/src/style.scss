@@ -40,6 +40,10 @@ $copyright-span: #2995aa;
 body{
 	height: 100vh;
 	background-color: $noir;
+	background-image: url(img/background-img.jpeg);
+	background-position: cover;
+	background-repeat: no-repeat;
+	background-size: 100%;
 }
 
 // fin general /////////////////////////////////////////////////////////////////

@@ -12,6 +12,7 @@ class App extends Component {
         <Classement></Classement>
         <Footer></Footer>
         
+        
       </div>
     );
   }

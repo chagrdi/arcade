@@ -1,19 +1,8 @@
-$noir: #000000;
-$header: #F79D5C;
-$red: red !important;
+// ICI NOTRE SASS POUR TOUTE NOTRE WEB-APP
 
-body{
-   background-color: $noir;
-   color: antiquewhite;
-}
-
-.header{
-    background-color: $header;
-}
-.title{
-    color: $red;
-}
+// color 
 @import url('https://fonts.googleapis.com/css?family=Orbitron|Quicksand:500');
+$noir: #000000;
 $border-color: #4c4c4c;
 $border-size: 5px;
 $stripe-left-color: #BFD3C1;
@@ -35,7 +24,7 @@ $body-gradient:       repeating-linear-gradient(
   $body-bg-color,
   $body-bg-color 15px,
   lighten($body-bg-color,10%) 15px,
-  lighten($body-bg-color,10%) 16px /* determines size */
+  lighten($body-bg-color,10%) 16px
 );
 
 $copyright-color: #4B5B61;
@@ -44,10 +33,17 @@ $credits-color: lighten(#4B5B61, 20%);
 $credits-a-color: #3d9cbf;
 $copyright-span: #2995aa;
 
-//--------------------------------
-// Mixins
-//--------------------------------
+// fin des couleurs  /////////////////////////////////////////////////////////////////
 
+
+// general /////////////////////////////////////////////////////////////////
+body{
+	background-color: $noir;
+}
+
+// fin general /////////////////////////////////////////////////////////////////
+
+// mixin ici  /////////////////////////////////////////////////////////////////
 @mixin size($h: 100%, $w: 100%) {
   height: $h;
   width: $w;
@@ -58,20 +54,16 @@ $copyright-span: #2995aa;
   top: $t;
   left: $l;
 }
-//--------------------------------
+ 
+// fin des mixin /////////////////////////////////////////////////////////////////
 
-body {
-  background-image: $body-gradient;
-}
 
-//--------------------------------
-// Arcade Machine
-//--------------------------------
+
+// borne arcade ici /////////////////////////////////////////////////////////////////
 
 .arcade-machine {
   @include size(400px,400px);
-  position: relative;
-  margin: 35px auto;
+
   perspective: 35em;
   
   .top {
@@ -167,7 +159,7 @@ body {
           $screen-color,
           $screen-color 15px,
           lighten($screen-color,10%) 15px,
-          lighten($screen-color,10%) 16px /* determines size */
+          lighten($screen-color,10%) 16px
         );
         animation: translate 1s infinite;
       }
@@ -217,7 +209,7 @@ body {
         }
       }
   }
-} //End Screen Container
+} 
   
   .board {
     @include size(20%, 66%);
@@ -281,10 +273,7 @@ body {
   
 } 
 
-
-//--------------------------------
-// Alien
-//--------------------------------
+// interieur alien
 
 .alien-container {
   position: absolute;
@@ -383,43 +372,8 @@ body {
     &-left:before { left: -100%; }
     &-right:before { right: -100%;}
   }
-  
-}
-
-//--------------------------------
-// Footer
-//--------------------------------
-
-footer {
-  text-align: center;
-  font-family: 'Quicksand', sans-serif;
-  margin-top: -30px;
-  h3 {
-    color: $copyright-color;
-    font-size: 1.2rem;
-    margin-bottom: 5px;
-    span {
-      color: $copyright-span;
-    }
-  }
-  h4 {
-    color: $dedication-color;
-    font-size: 1rem;
-    margin-bottom: 10px;
-  }
-  p {
-    font-size: .9rem;
-    color: $credits-color;
-    a {
-      color: $credits-a-color;
-      
-    }
-  }
-}
-
-//--------------------------------
-// Animations
-//--------------------------------
+	
+	
 @keyframes bounce {
   from {
     transform: translateY(0);
@@ -440,9 +394,12 @@ footer {
     top: 10%;
   }
 }
+}
 
-// insert coin
 
+// fin borne arcade /////////////////////////////////////////////////////////////////
+
+// titre
 .Coin {
   height: 90px;
 	color: white;
@@ -457,4 +414,6 @@ footer {
   animation: blink 1s steps(4, start) infinite;
 }
 
+
+// fin des titres
 

@@ -13,1150 +13,430 @@ body{
 .title{
     color: $red;
 }
+@import url('https://fonts.googleapis.com/css?family=Orbitron|Quicksand:500');
+$border-color: #4c4c4c;
+$border-size: 5px;
+$stripe-left-color: #BFD3C1;
+$stripe-center-color: #68A691;
+$stripe-right-color: #07BEB8;
+$screen-container-color: #4B5B61;
+$screen-container-shadow-color: rgba(0,0,0,.1);
+$screen-color: #313332;
+$screen-title-font: 'Orbitron', sans-serif;
+$screen-font-color: #e0e0e0;
+$joystick-color: #0F90C9;
+$alien-skin: #B4DEEC;
+$alien-eyes: #313332;
 
-$sideColor: rgb(41,37,87);
-$panelColor: rgb(68,62,145);
-$backsideColor: rgb(96,91,88);
+$body-line-color: #1E2978;
+$body-bg-color: #B4DEEC; 
+$body-gradient:       repeating-linear-gradient(
+  0deg,
+  $body-bg-color,
+  $body-bg-color 15px,
+  lighten($body-bg-color,10%) 15px,
+  lighten($body-bg-color,10%) 16px /* determines size */
+);
 
-$invader1Color: rgb(255,28,28);
-$invader2Color: rgb(255,255,28);
-$invader3Color: rgb(28,255,28);
-$backColor: transparent;
+$copyright-color: #4B5B61;
+$dedication-color: #87aebc;
+$credits-color: lighten(#4B5B61, 20%);
+$credits-a-color: #3d9cbf;
+$copyright-span: #2995aa;
 
-$arcadeX: 380px;
-$arcadeY: 320px;
-$arcadeZ: 800px;
-$capX: 380px;
-$capY: 360px;
-$capZ: 140px;
-$capOverhang: ($capY - $arcadeY);
-$panelX: 380px;
-$panelY: 120px;
-$panelZ: 400px;
-$screenZ: 360px;
+//--------------------------------
+// Mixins
+//--------------------------------
 
-
-html {
-    height: 100%;
+@mixin size($h: 100%, $w: 100%) {
+  height: $h;
+  width: $w;
 }
+
+@mixin position($t: 0%, $l: 0%) {
+  position: absolute;
+  top: $t;
+  left: $l;
+}
+//--------------------------------
+
 body {
-	background: black;
-	padding: 10px;
-	padding-bottom: 150px;
-}
-h1 {
-	margin: 16px 0;
-	text-align: center;
-	text-shadow: 0 0 3px rgba(0,0,0,0.4);
-	font-size: 36px;
-
-}
-h1>span {
-    display: block;
-	font-size: 12px;
-    font-family: Arial;
-	color: #222;
-}
-h2 {
-	margin: 8px 0;
-	text-align: center;
-	text-shadow: 0 0 4px rgba(255,255,255,0.7);
-	font-size: 22px;
-	font-family: 'Fredoka One', cursive;
-}
-a {
-	color: #89310F;
-}
-.infobox {
-	float: right;
-	widrh: 20%;
-	padding: 1em;
-	background-color: #eee;
-	border: 1px solid #888;
-	box-shadow: 3px 3px 3px 0 rgba(0,0,0,.5);
-
+  background-image: $body-gradient;
 }
 
-/* Arcade Machine */
-.stage {
-	perspective: 1600px;
-	perspective-origin: 50% 50%;
-	transform-origin: 100% 100%;
-	margin: 80px 0 100px 100px;
-	transition: transform 1s;
-}
+//--------------------------------
+// Arcade Machine
+//--------------------------------
 
-/* Zoom */
-.arcademachinewrap {
-	position: relative;
-	width: $arcadeX;
-	transform-style: preserve-3d;
-	transform: scale(.5);
-	transition: all 1s;
-}
-.arcademachinewrap:hover {
-	transform: scale(1);
-}
-/* Rotate */
-.arcademachinewrap .arcademachine {
-	position: relative;
-	width: $arcadeX;
-	transform-style: preserve-3d;
-	animation: spin 6s linear infinite;
-    animation-play-state: running;
- 	transition: all 1.5s;
-    transform: rotateY(89deg);
-}
-.arcademachinewrap:hover .arcademachine {
-	transform: rotateY(0deg);
-    animation: none;
-}
-@keyframes spin {
-	from { transform: rotateY(0); }
-	to { transform: rotateY(360deg); }
-}
-.box {
-	position: relative;
-	width: $arcadeX;
-	transform-style: preserve-3d;
-}
-.side {
-	backface-visibility: hidden;
-}
-
-/* Cap */
-.cap  {
-z-index: -1;
-	xdisplay: none;
-	transform-style: preserve-3d;
-	transform-origin: bottom left;
-	transform-origin: center center center;
-	transform: rotateY(90deg) skewY(13deg) rotateY(-90deg) translateY(-$capZ/2 + 33px) translateZ($capOverhang/2); /*  translateY(-$capZ/2 + 33px) */
-}
-.capright, .capleft {
-	backface-visibility: hidden;
-	position: absolute;
-	width: $capY;
-	height: $capZ;
-	background-color: $sideColor;
-}
-.capfront, .capback {
-	backface-visibility: hidden;
-	position: absolute;
-	width: $capX;
-	height: $capZ;
-	background-color: $sideColor;
-}
-.captop, .capbottom {
-	backface-visibility: hidden;
-	position: absolute;
-	width: $capX;
-	height: $capY;
-	background-color: $sideColor;
-}
-.capright {
-	box-shadow: 0 0 0 1px rgba(0,0,0,.4) inset;
-	transform-origin: top right;
-	transform: rotateY(-270deg) translateX(($capY / 2)) translateZ($capOverhang/2);
-}
-.capleft {
-	box-shadow: 0 0 0 1px rgba(0,0,0,.4) inset;
-	transform-origin: top left;
-	transform: rotateY(270deg) translateX(-($capY / 2));
-}
-.capfront {
-	box-shadow: 0 0 0 1px rgba(0,0,0,.3) inset;
-	text-align: center;
-	transform-origin: bottom center;
-	transform: translateZ(($capY / 2));
-}
-.capback {
-	transform-origin: bottom center;
-	transform: translateZ(-($capY / 2)) rotateY(180deg);
-	background-color: $backsideColor;
-}
-.captop {
-	background-image: radial-gradient(ellipse at top, rgba(31,28,66,1) 0%, rgba(31,28,66,0) 100%);
-	box-shadow: 0 0 0 1px rgba(0,0,0,.7) inset;
-	transform-origin: top left;
-	transform: rotateX(90deg) translateY(-($capY / 2));
-}
-.capbottom {
-	background-image: radial-gradient(ellipse at top, rgba(31,28,66,1) 0%, rgba(31,28,66,0) 100%);
-	box-shadow: 0 0 0 1px rgba(0,0,0,.3) inset;
-	transform: rotateX(270deg) translateY(-($capY / 2)) translateZ($capZ);
-	transform-origin: top left;
-	background-color: $sideColor;
-    height: 70px; /* 70px */
-}
-/* Panel */
-.panel  {
-z-index: -1;
-	transform-style: preserve-3d;
-	transform-origin: top center;
-	transform: rotateX(-12deg) translateY(($panelZ - $arcadeY/2 +110px)) translateZ(260px); /* translateY(($panelZ - $arcadeY/2 +55px)) translateZ(130px) */
-}
-.panelright, .panelleft {
-	backface-visibility: hidden;
-	position: absolute;
-	width: $panelY;
-	height: $panelZ;
-	background-color: $sideColor;
-}
-.panelfront, .panelback {
-	backface-visibility: hidden;
-	position: absolute;
-	width: $panelX;
-	height: $panelZ;
-	background-color: $sideColor;
-}
-.paneltop, .panelbottom {
-	backface-visibility: hidden;
-	position: absolute;
-	width: $panelX;
-	height: $panelY;
-	background-color: $sideColor;
-}
-.panelright {
-	box-shadow: 0 0 1px 1px rgba(0,0,0,.3) inset;
-	transform-origin: top right;
-	transform: rotateY(-270deg) translateX(($panelY / 2)) translateZ(($panelX - $panelY));
-}
-.panelleft {
-	box-shadow: 0 0 1px 1px rgba(0,0,0,.3) inset;
-	transform-origin: top left;
-	transform: rotateY(270deg) translateX(-($panelY / 2));
-}
-.panelfront {
-	box-shadow: 0 0 1px 1px rgba(0,0,0,.3) inset;
-	background-image: radial-gradient(ellipse at bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
-	text-align: center;
-	transform-origin: center center;
-	transform: translateZ(($panelY / 2));
-}
-.panelback {
-	/* Screen */
-    height: $screenZ - 20px;
-	transform-origin: bottom center;
-	transform: translateY(-($panelX - ($panelZ - $screenZ + 15px))) translateZ(-($panelY/2)) rotateX(32deg);
-	background-color: $backsideColor;
-	background-image: radial-gradient(ellipse at center, rgba(128,142,162,1) 0%,rgba(128,142,162,1) 50%,rgba(71,92,105,1) 100%),linear-gradient(to bottom, rgba(0,0,0,0.35) 0%,rgba(0,0,0,0) 100%);
-	box-shadow: 0 0 0 1px rgba(0,0,0,.3) inset;
-}
-.paneltop {
-	box-shadow: 0 0 0 1px rgba(0,0,0,.7) inset;
-	transform-origin: top left;
-	transform: rotateX(90deg) translateY(-($panelY / 2));
-	background-color: $panelColor;
-    background-image: linear-gradient(to bottom, rgba(0,0,0,.5) 0%,rgba(0,0,0,0) 100%);
-}
-.panelbottom {
-	transform: rotateX(270deg) translateY(-($panelY / 2)) translateZ($panelZ);
-	transform-origin: top left;
-	background-color: $sideColor;
-}
-
-
-/* Main */
-.main {
-	xdisplay: none;
-    z-index: 1;
-}
-.main .invader1 {
-    animation: none !important;
-}
-
-.mainright, .mainleft {
-	backface-visibility: hidden;
-	position: absolute;
-	width: $arcadeY;
-	height: $arcadeZ;
-	background-color: $sideColor;
-	text-align: center;
-}
-.mainright h3 {
-	margin-top: 60px;
-	transform:  perspective(100px) rotateX(-29deg) rotateZ(7deg);
-}
-.mainleft h3 {
-	margin-top: 60px;
-	transform:  perspective(100px) rotateX(-29deg) rotateZ(-7deg);
-}
-.mainback {
-	position: absolute;
-	width: $arcadeX;
-	height: $arcadeZ;
-	background-color: $backsideColor;
-	background-image: radial-gradient(ellipse at bottom, rgba(0,0,0,.3) 0%, rgba(0,0,0,0) 100%);
-	box-shadow: 0 0 0 1px rgba(0,0,0,.3) inset;
-}
-.mainbottom {
-	position: absolute;
-	width: $arcadeX;
-	height: $arcadeY;
-	background-color: $sideColor;
-}
-.mainright {
-	background-image: linear-gradient(290deg, rgba(20,18,43,1) 0%, rgba(20,18,43,0) 51%, rgba(20,18,43,0) 100%);
-	transform-origin: top right;
-	transform: rotateY(-270deg) translateX(($arcadeY / 2)) translateZ(60px); /*  translateZ(30px) */
-}
-.mainleft {
-	background-image: linear-gradient(70deg, rgba(20,18,43,1) 0%, rgba(20,18,43,0) 51%, rgba(20,18,43,0) 100%);
-	transform-origin: top left;
-	transform: rotateY(270deg) translateX(-($arcadeY / 2));
-}
-.mainright.inner {
-	transform: rotateY(-90deg) translateX(($arcadeY / 2)) translateZ(-60px);  /*  translateZ(-30px) */
-}
-.mainleft.inner {
-	transform: rotateY(90deg) translateX(-($arcadeY / 2));
-}
-.mainback {
-	transform-origin: bottom center;
-	transform: translateZ(-($arcadeY / 2)) rotateY(180deg);
-}
-.mainbottom {
-	transform: rotateX(270deg) translateY(-($arcadeY / 2)) translateZ($arcadeZ);
-	transform-origin: top left;
-	background-color: $sideColor;
-	box-shadow: 0 0 $arcadeY/2 $arcadeX/2 rgba(0,0,0,.7);
-}
+.arcade-machine {
+  @include size(400px,400px);
+  position: relative;
+  margin: 35px auto;
+  perspective: 35em;
+  
+  .top {
+    @include size(15%, 70%);
+    @include position(0%, 15%);
+    background: white;
+    border: $border-size solid $border-color;
+    z-index: 3;
+    &:before,
+    &:after {
+      @include size(100%, 4%);
+      position: absolute;
+      top: -9%;
+      background: white;
+      border: $border-size solid $border-color;
+      content: ' ';
+    }
+    &:before { left: -6%; }
+    &:after { right: -6%; }
+  }
+  
+  .stripes {
+    @include size(100%,10%);
+    @include position(0%, 45%);
+    background: $stripe-center-color;
+    &:before,
+    &:after {
+      @include size(100%, 100%);
+      position: absolute;
+      top: 0%;
+      content: ' ';
+    }
+    &:before { 
+      background: $stripe-left-color;
+      left: -100%; 
+    }
+    &:after { 
+      background: $stripe-right-color;
+      right: -100%; 
+    }
+  }
+  
+  &>.shadow {
+    @include size(85%, 65%);
+    @include position(2%, 19%);
+    background: darken($screen-container-color,0%);
+    box-shadow: 0 0 60px $screen-container-color;
+    z-index:-1;
+  }
+  
+  .screen-container {
+    @include size(50%, 62%);
+    @include position(15%, 19%);
+    background: darken($screen-container-color,0%);
+    border: $border-size solid $border-color;
+    z-index:1;
+    
+    &:before,
+    &:after {
+      @include size(100%, 4%);
+      position: absolute;
+      top: -2%;
+      background: white;
+      content: ' ';
+      border: $border-size solid $border-color;
+      z-index: 2;
+    }
+    &:before { left: -6%; }
+    &:after { right: -6%; }
+    
+    .shadow {
+      @include size(8%,110%);
+      @include position(0%, -5%);
+      background: $screen-container-shadow-color;
+      z-index: 4;
+    }
+    
+    .screen {
+      @include size(70%,75%);
+      @include position(15%, 11%);
+      background: $screen-color;
+      border: $border-size solid $border-color;
+      border-radius: 90px 93px 93px 93px / 15px 15px 15px 15px;
+      overflow: hidden;
+      text-align: center;
+      
+      &-display {
+        position: absolute;
+        width: 100%;
+        height: 200%;
+        background-image: repeating-linear-gradient(
+          0deg,
+          $screen-color,
+          $screen-color 15px,
+          lighten($screen-color,10%) 15px,
+          lighten($screen-color,10%) 16px /* determines size */
+        );
+        animation: translate 1s infinite;
+      }
+      
+      h2 {
+        position: absolute;
+        top: 60%;
+        color: $screen-font-color;
+        font-family: $screen-title-font, sans-serif;
+      }
+    }
+    
+    .joystick {
+      @include size(6%, 5%);
+      background: $joystick-color;
+      position: absolute;
+      top: 91%;
+      left: 17%;
+      border-radius: 50%;
+      border: $border-size solid $border-color;
+      z-index: 3;
+      &:before {
+        @include size(90%, 65%);
+        position: absolute;
+        top: 7%;
+        left: 32%;
+        background: darken($joystick-color,7%);
+        content: '';
+        border-radius: 50%;
+      }
+      .stick {
+        @include size(200%, 40%);
+        position: absolute;
+        top: 100%;
+        left: 30%;
+        background: $border-color;
+        content: '';
+          &:before {
+          @include size(100%, 150%);
+          transform: rotate(90deg);
+          position: absolute;
+          top: 50%;
+          left: -20%;
+          background: $border-color;
+          content: '';
+          
+        }
+      }
+  }
+} //End Screen Container
+  
+  .board {
+    @include size(20%, 66%);
+    @include position(61%, 18.2%);
+    background: $screen-container-color;
+    transform: rotateX(70deg);
+    &:before,
+    &:after {
+      @include size(92%, 4%);
+      position: absolute;
+      top: -2%;
+      background: white;
+      content: ' ';
+      border: $border-size solid $border-color;
+      z-index: 2;
+    }
+    &:before { left: -6%; }
+    &:after { right: -6%; }
+    
+    .button {
+      @include size(15%, 6%);
+      position: absolute;
+      top: 40%;
+      left: 30%;
+      
+      border-radius: 50%;
+      border: $border-size solid $border-color;
+    }
+    .button-a { 
+      background: $stripe-left-color;
+      left: 40%; 
+    }
+    .button-b { 
+      background: $stripe-center-color;
+      left: 55%; 
+    }
+    .button-c { 
+      background: $stripe-right-color;
+      left: 70%; 
+    }
+  }
+  
+  .bottom {
+    @include size(10%, 71%);
+    @include position(76%, 14.5%);
+    background: white;
+    border: $border-size solid $border-color;
+    &:before,
+    &:after {
+      @include size(98%, 4%);
+      position: absolute;
+      top: -9%;
+      background: white;
+      content: ' ';
+      border: $border-size solid $border-color;
+      z-index: 2;
+    }
+    &:before { left: -5.8%; }
+    &:after { right: -5.9%; }
+  }
+  
+} 
 
 
-/* Space Invaders */
-.invader1, .invader2, .invader3 {
-	font-size: 8px;
-	width: 16em;
-	height: 30em;
-	background-repeat: repeat-x;
-	background-size: 16em 1em;
-	background-position: 0 3em,
-						 0 4em,
-						 0 5em,
-						 0 6em,
-						 0 7em,
-						 0 8em,
-						 0 9em,
-						 0 10em,
-						 0 19em,
-						 0 20em,
-						 0 21em,
-						 0 22em,
-						 0 23em,
-						 0 24em,
-						 0 25em,
-						 0 26em;
-	animation: animate-invaders 2s steps(1) infinite;
-}
-.invader1 {
-	background-image: linear-gradient(to left,
-						$backColor 0,
-						$backColor 6em,
-						$invader1Color 6em,
-						$invader1Color 10em,
-						$backColor 10em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader1Color 3em,
-						$invader1Color 13em,
-						$backColor 13em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 2em,
-						$invader1Color 2em,
-						$invader1Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 2em,
-						$invader1Color 2em,
-						$invader1Color 5em,
-						$backColor 5em,
-						$backColor 7em,
-						$invader1Color 7em,
-						$invader1Color 9em,
-						$backColor 9em,
-						$backColor 11em,
-						$invader1Color 11em,
-						$invader1Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 2em,
-						$invader1Color 2em,
-						$invader1Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader1Color 5em,
-						$invader1Color 7em,
-						$backColor 7em,
-						$backColor 9em,
-						$invader1Color 9em,
-						$invader1Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader1Color 4em,
-						$invader1Color 6em,
-						$backColor 6em,
-						$backColor 7em,
-						$invader1Color 7em,
-						$invader1Color 9em,
-						$backColor 9em,
-						$backColor 10em,
-						$invader1Color 10em,
-						$invader1Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader1Color 3em,
-						$invader1Color 5em,
-						$backColor 5em,
-						$backColor 11em,
-						$invader1Color 11em,
-						$invader1Color 13em,
-						$backColor 13em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 6em,
-						$invader1Color 6em,
-						$invader1Color 10em,
-						$backColor 10em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader1Color 3em,
-						$invader1Color 13em,
-						$backColor 13em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 2em,
-						$invader1Color 2em,
-						$invader1Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 2em,
-						$invader1Color 2em,
-						$invader1Color 5em,
-						$backColor 5em,
-						$backColor 7em,
-						$invader1Color 7em,
-						$invader1Color 9em,
-						$backColor 9em,
-						$backColor 11em,
-						$invader1Color 11em,
-						$invader1Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 2em,
-						$invader1Color 2em,
-						$invader1Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader1Color 4em,
-						$invader1Color 7em,
-						$backColor 7em,
-						$backColor 9em,
-						$invader1Color 9em,
-						$invader1Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader1Color 3em,
-						$invader1Color 5em,
-						$backColor 5em,
-						$backColor 7em,
-						$invader1Color 7em,
-						$invader1Color 9em,
-						$backColor 9em,
-						$backColor 11em,
-						$invader1Color 11em,
-						$invader1Color 13em,
-						$backColor 13em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader1Color 4em,
-						$invader1Color 6em,
-						$backColor 6em,
-						$backColor 10em,
-						$invader1Color 10em,
-						$invader1Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 );
-}
-.invader2 {
-	background-image: linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader2Color 5em,
-						$invader2Color 6em,
-						$backColor 6em,
-						$backColor 11em,
-						$invader2Color 11em,
-						$invader2Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader2Color 3em,
-						$invader2Color 4em,
-						$backColor 4em,
-						$backColor 6em,
-						$invader2Color 6em,
-						$invader2Color 7em,
-						$backColor 7em,
-						$backColor 10em,
-						$invader2Color 10em,
-						$invader2Color 11em,
-						$backColor 11em,
-						$backColor 13em,
-						$invader2Color 13em,
-						$invader2Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader2Color 3em,
-						$invader2Color 4em,
-						$backColor 4em,
-						$backColor 5em,
-						$invader2Color 5em,
-						$invader2Color 12em,
-						$backColor 12em,
-						$backColor 13em,
-						$invader2Color 13em,
-						$invader2Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader2Color 3em,
-						$invader2Color 6em,
-						$backColor 6em,
-						$backColor 7em,
-						$invader2Color 7em,
-						$invader2Color 10em,
-						$backColor 10em,
-						$backColor 11em,
-						$invader2Color 11em,
-						$invader2Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader2Color 3em,
-						$invader2Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader2Color 4em,
-						$invader2Color 13em,
-						$backColor 13em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader2Color 5em,
-						$invader2Color 6em,
-						$backColor 6em,
-						$backColor 11em,
-						$invader2Color 11em,
-						$invader2Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader2Color 4em,
-						$invader2Color 5em,
-						$backColor 5em,
-						$backColor 12em,
-						$invader2Color 12em,
-						$invader2Color 13em,
-						$backColor 13em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader2Color 5em,
-						$invader2Color 6em,
-						$backColor 6em,
-						$backColor 11em,
-						$invader2Color 11em,
-						$invader2Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 6em,
-						$invader2Color 6em,
-						$invader2Color 7em,
-						$backColor 7em,
-						$backColor 10em,
-						$invader2Color 10em,
-						$invader2Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader2Color 5em,
-						$invader2Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader2Color 4em,
-						$invader2Color 6em,
-						$backColor 6em,
-						$backColor 7em,
-						$invader2Color 7em,
-						$invader2Color 10em,
-						$backColor 10em,
-						$backColor 11em,
-						$invader2Color 11em,
-						$invader2Color 13em,
-						$backColor 13em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader2Color 3em,
-						$invader2Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader2Color 3em,
-						$invader2Color 4em,
-						$backColor 4em,
-						$backColor 5em,
-						$invader2Color 5em,
-						$invader2Color 12em,
-						$backColor 12em,
-						$backColor 13em,
-						$invader2Color 13em,
-						$invader2Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 3em,
-						$invader2Color 3em,
-						$invader2Color 4em,
-						$backColor 4em,
-						$backColor 5em,
-						$invader2Color 5em,
-						$invader2Color 6em,
-						$backColor 6em,
-						$backColor 11em,
-						$invader2Color 11em,
-						$invader2Color 12em,
-						$backColor 12em,
-						$backColor 13em,
-						$invader2Color 13em,
-						$invader2Color 14em,
-						$backColor 14em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 6em,
-						$invader2Color 6em,
-						$invader2Color 8em,
-						$backColor 8em,
-						$backColor 9em,
-						$invader2Color 9em,
-						$invader2Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 );
-}
-.invader3 {
-	background-image: linear-gradient(to left,
-						$backColor 0,
-						$backColor 7em,
-						$invader3Color 7em,
-						$invader3Color 9em,
-						$backColor 9em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 6em,
-						$invader3Color 6em,
-						$invader3Color 10em,
-						$backColor 10em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader3Color 5em,
-						$invader3Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader3Color 4em,
-						$invader3Color 6em,
-						$backColor 6em,
-						$backColor 7em,
-						$invader3Color 7em,
-						$invader3Color 9em,
-						$backColor 9em,
-						$backColor 10em,
-						$invader3Color 10em,
-						$invader3Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader3Color 4em,
-						$invader3Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 6em,
-						$invader3Color 6em,
-						$invader3Color 7em,
-						$backColor 7em,
-						$backColor 9em,
-						$invader3Color 9em,
-						$invader3Color 10em,
-						$backColor 10em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader3Color 5em,
-						$invader3Color 6em,
-						$backColor 6em,
-						$backColor 7em,
-						$invader3Color 7em,
-						$invader3Color 9em,
-						$backColor 9em,
-						$backColor 10em,
-						$invader3Color 10em,
-						$invader3Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader3Color 4em,
-						$invader3Color 5em,
-						$backColor 5em,
-						$backColor 6em,
-						$invader3Color 6em,
-						$invader3Color 7em,
-						$backColor 7em,
-						$backColor 9em,
-						$invader3Color 9em,
-						$invader3Color 10em,
-						$backColor 10em,
-						$backColor 11em,
-						$invader3Color 11em,
-						$invader3Color 12em,
- 						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 7em,
-						$invader3Color 7em,
-						$invader3Color 9em,
-						$backColor 9em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 6em,
-						$invader3Color 6em,
-						$invader3Color 10em,
-						$backColor 10em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader3Color 5em,
-						$invader3Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader3Color 4em,
-						$invader3Color 6em,
-						$backColor 6em,
-						$backColor 7em,
-						$invader3Color 7em,
-						$invader3Color 9em,
-						$backColor 9em,
-						$backColor 10em,
-						$invader3Color 10em,
-						$invader3Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader3Color 4em,
-						$invader3Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader3Color 5em,
-						$invader3Color 6em,
-						$backColor 6em,
-						$backColor 7em,
-						$invader3Color 7em,
-						$invader3Color 9em,
-						$backColor 9em,
-						$backColor 10em,
-						$invader3Color 10em,
-						$invader3Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 4em,
-						$invader3Color 4em,
-						$invader3Color 5em,
-						$backColor 5em,
-						$backColor 11em,
-						$invader3Color 11em,
-						$invader3Color 12em,
-						$backColor 12em,
-						$backColor 15em
-					 ),linear-gradient(to left,
-						$backColor 0,
-						$backColor 5em,
-						$invader3Color 5em,
-						$invader3Color 6em,
-						$backColor 6em,
-						$backColor 10em,
-						$invader3Color 10em,
-						$invader3Color 11em,
-						$backColor 11em,
-						$backColor 15em
-					 );
-}
-@keyframes animate-invaders {
-    50% {
-    	background-position: 0 19em,
-    						 0 20em,
-    						 0 21em,
-    						 0 22em,
-    						 0 23em,
-    						 0 24em,
-    						 0 25em,
-    						 0 26em,
-                             0 3em,
-    						 0 4em,
-    						 0 5em,
-    						 0 6em,
-    						 0 7em,
-    						 0 8em,
-    						 0 9em,
-    						 0 10em;
-	}
-}
-.invader1.small, .invader2.small, .invader3.small {
-	font-size: 4px;
-	height: 15em;
-	display: inline-block;
-	opacity: .8;
-	position: relative;
-	top: -10em;
-    animation: none;
-}
-.invader1.big, .invader2.big, .invader3.big {
-	font-size: 10px;
-	height: 15em;
-	display: block;
-	opacity: .8;
-	position: relative;
-    left: 20px;
-    animation: none;
-}
-.invader1.big {
-    left: 20px;
-}
-.invader2.big {
-    left: 80px;
-}
-.invader3.big {
-    left: 20px;
-}
-.row {
-	width: 144em;
-	height: 15em;
-}
-.row.double {
-  height: 30em;
-}
+//--------------------------------
+// Alien
+//--------------------------------
 
-.space-invaders {
+.alien-container {
   position: absolute;
-  transform-origin: left top;
-  transform: scale(.2);
-  z-index: 1;
-  top:0;
-  left:0;
-  top: 20px;
-  left: 15px;
-  animation: showinvaders 10s steps(1) infinite;
+  top: 20%;
+  left: 35%;
+  height: 30%;
+  width: 30%;
+  animation: bounce .8s infinite;
 }
-@keyframes showinvaders {
-	0% { opacity:0; }
-	20% { opacity:1; }
-	90% { opacity:1; }
-	100% { opacity:0; }
-}
-.gameover {
-  text-align: center;
-  font: bold 35px/160px Arial;
-  color: rgb(255,28,28);
-  z-index: 1;
-  animation: showgameover 10s steps(1) infinite;
-}
-@keyframes showgameover {
-	0% { opacity:1; }
-	20% { opacity:0; }
-	90% { opacity:0; }
-	100% { opacity:1; }
-}
-.space-invaders-move {
+
+.alien {
+  
+  .ear {
     position: absolute;
-    z-index: 1;
-    top:0;
-    left:0;
-    top: 20px;
-    left: 10px;
-    width: 300px;
-    animation: moveinvaders 16s steps(16) infinite;
-}
-@keyframes moveinvaders {
-	0% { left:0; }
-	50% { left: 3em; }
-	100% {  left: 0; }
+    top: 14%;
+    height: 13%;
+    width: 10%;
+    background: $alien-skin;
+    &-left { left: 35%; }
+    &-right { right: 35%; }
+    &:before {
+      position: absolute;
+      top: -100%;
+      height: 100%;
+      width: 100%;
+      background: $alien-skin;
+      content: '';
+    }
+    &-left:before { left: -100%; }
+    &-right:before { right: -100%;}
+  }
+  
+  .head-top {
+    position: absolute;
+    top: 26%;
+    left: 20%;
+    height: 15%;
+    width: 60%;
+    background: $alien-skin;
+  }
+  
+  .head {
+    position: absolute;
+    top: 40%;
+    left: 11.5%;
+    height: 15%;
+    width: 77%;
+    background: $alien-skin;
+    .eye {
+      position: absolute;
+      top: -5%;
+      height: 77%;
+      width: 12%;
+      background: $alien-eyes;
+      &-left {left: 25%; }
+      &-right {right: 25%; }
+    }
+  }
+  
+  .body {
+    position: absolute;
+    top: 54%;
+    left: 10%;
+    height: 20%;
+    width: 80%;
+    background: $alien-skin;
+    
+    &:before,
+    &:after {
+      height: 220%;
+      width: 13%;
+      background: $alien-skin;
+      position: absolute;
+      content: '';
+    }
+    &:before { left: -10%; }
+    &:after { right: -10%; }
+  }
+  
+  .arm {
+    position: absolute;
+    top: 85%;
+    height: 13%;
+    width: 10%;
+    background: $alien-skin;
+    &-left { left: 35%; }
+    &-right { right: 35%; }
+    &:before {
+      position: absolute;
+      top: -100%;
+      height: 100%;
+      width: 100%;
+      background: $alien-skin;
+      content: '';
+    }
+    &-left:before { left: -100%; }
+    &-right:before { right: -100%;}
+  }
+  
 }
 
-.insertcoin {
-  padding-top: 20px;
+//--------------------------------
+// Footer
+//--------------------------------
+
+footer {
   text-align: center;
-  font: bold 26px/30px Arial;
-  color: rgb(255,255,255);
-  z-index: 1;
-  opacity: 0;
-  animation: flash 2s steps(1) infinite;
-}
-@keyframes flash {
-	0% { opacity:0; }
-	50% {  opacity: 1; }
-	100% {  opacity: 1; }
-}
-
-
-.logo {
-	display: inline-block;
-	padding-top: 130px;
-	text-align: center;
-	color: #F0D73F;
-	font: bold 38px/40px Arial;
-	transform-origin: 50% 100%;
-	transform:  perspective(100px) rotateX(-25deg);
-    backface-visibility: hidden;
-	text-shadow: -1px -1px 1px rgba(0,0,0,1),
-				 1px 1px 1px rgba(0,0,0,1),
-				 0 -3px 1px rgba(255,0,0,1),
-				 0 -5px 1px rgba(0,0,0,1);
-}
-.cap .logo {
-  padding-top: 45px;
-}
-.mainleft .logo {
-	transform:  perspective(100px) rotateX(-25deg) rotate(353deg);
-}
-.mainright .logo {
-	transform:  perspective(100px) rotateX(-25deg) rotate(7deg);
+  font-family: 'Quicksand', sans-serif;
+  margin-top: -30px;
+  h3 {
+    color: $copyright-color;
+    font-size: 1.2rem;
+    margin-bottom: 5px;
+    span {
+      color: $copyright-span;
+    }
+  }
+  h4 {
+    color: $dedication-color;
+    font-size: 1rem;
+    margin-bottom: 10px;
+  }
+  p {
+    font-size: .9rem;
+    color: $credits-color;
+    a {
+      color: $credits-a-color;
+      
+    }
+  }
 }
 
-.button {
-	margin-top: 2px;
-	position: relative;
-	display: inline-block;
-	width: 20px;
-	height: 20px;
-	border-radius: 50%;
-	background-color: rgba(230,0,0,1);
-}
-.button.players1:before, .button.players2:before,
-.button.fire:before,
-.button.left:before, .button.right:before {
-	position: absolute;
-	white-space: pre;
-	content: "1 Player ";
-	font: bold 10px/20px Arial;
-	color: #eee;
-	right: 24px;
-}
-.button.players2:before {
-	content: "2 Player";
-}
-.button.fire:before, .button.left:before, .button.right:before{
-	content: "Fire";
-	right: auto;
-	left: 0px;
-	bottom: -20px;
-}
-.button.left:before{
-	content: "Left";
-}
-.button.right:before{
-	content: "Right";
-}
-.button:after {
-	content:"";
-	position: absolute;
-	left: 4px;
-	top: 4px;
-	width: 12px;
-	height: 12px;
-	border-radius: 50%;
-	background-color: rgba(230,0,0,1);
-    background-image: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%,rgba(0,0,0,0) 100%);
-}
-.coinslot {
-	position: relative;
-	float: right;
-	width: 100px;
-	height: 60px;
-	border-radius: 3px;
-	background: #aaa;
-	margin: 20px;
-	border: 2px solid #888;
-}
-.coinslot:before {
-	content: "Insert coin";
-	position: absolute;
-	left: 20px;
-	top: 20px;
-	font: bold 10px Arial;
-	color: #111;
-}
-.coinslot:after {
-	position: absolute;
-	left: 84px;
-	top: 16px;
-	content: "";
-	width: 4px;
-	height: 22px;
-	background: #111;
-}
-.powersocket {
-	position: absolute;
-    bottom: 15px;
-	right: 10px;
-	width: 24px;
-	height: 24px;
-	border-radius: 3px;
-	background: #aaa;
-	border: 1px solid #aaa;
-}
-.powersocket:before, .powersocket:after {
-  content: "";
-  position: absolute;
-  left: 6px;
-  top: 10px;
-  width: 4px;
-  height: 4px;
-  background-color: black;
-}
-.powersocket:after {
-  background-color: black;
-  left: 14px;
+//--------------------------------
+// Animations
+//--------------------------------
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+  to {
+    transform: translateY(0);
+  }
 }
 
-.screen {
- display: inline-block;
- position: relative;
- width: 300px; /* 150px */
- height: 260px; /* 120px */
- margin: 35px 40px 0 40px; /* 35px 20px 0 20px */
- background: #111;
- border-radius: 50% / 10%;
- color: white;
- z-index: 0;
+@keyframes translate {
+  from {
+    top: 0;
+  }
+  to {
+    top: 10%;
+  }
 }
-.screen:before {
- content: "";
- position: absolute;
- top: 10%;
- bottom: 10%;
- right: -5%;
- left: -5%;
- z-index: -1;
- background: inherit;
- border-radius: 5% / 50%;
-}
-.paneltop {
-  overflow: hidden;
-  text-align: center;
-}
-.playerleft {
-  float: left;
-    margin-top: 60px;
-  margin-left: 65px;
-}
-.playerleft .button {
-  margin-right: 10px;
-}
-.playerright {
-	padding-left: 40px;
-  float: right;
-  margin-top: -40px;
-  margin-right: 20px;
-}
-.playercenter {
-    margin-top: 60px;
-    margin-right: 50px;
-}
-

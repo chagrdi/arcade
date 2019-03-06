@@ -5,77 +5,48 @@ class Header extends React.Component{
         return(
           
     
-        <div className="stage">
-            <div class="arcademachinewrap">
-                <div class="arcademachine">
-                    <div class="box">
-                        <div class="box cap">
-                            <div class="side capright"></div>
-                            <div class="side capleft"></div>
-                            <div class="side capfront">
-                                <div class="invader1 small"></div>
-                                <div class="logo">CSS<br />GANG</div>
-                                <div class="invader1 small"></div>
-                            </div>
-                            <div class="side capbottom"></div>
-                            <div class="side captop"></div>
-                        </div>
-                    </div>
-                    <div class="box">
-                        <div class="box panel">
-                            <div class="side panelright"></div>
-                            <div class="side panelleft"></div>
-                            <div class="side panelfront">
-                                <div class="coinslot"></div>
-                            </div>
-                            <div class="side panelbottom"></div>
-                            <div class="side panelback">
-                                <div class="screen">
-                                    <div class="space-invaders-move">
-                                      <div class="space-invaders">
-                                        <div class="row invader3"></div>
-                                        <div class="row double invader2"></div>
-                                        <div class="row double invader1"></div>
-                                      </div>
-                                    </div>
-                                    <div className="gameover">GAME OVER</div>
-                                    <div className="insertcoin">COUCOU THOMAS</div>
-                                </div>
-                            </div>
-                            <div className="side paneltop">
-                                <div className="playerleft">
-                                    <div className="button left"></div>
-                                    <div className="button right"></div>
-                                </div>
-                                <div className="playercenter">
-                                    <div className="button fire"></div>
-                                </div>
-                                <div className="playerright">
-                                <div className="button players1"></div>
-                                <div className="button players2"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="box main">
-                        <div class="side mainright">
-                            <div className="logo">CSS<br />GANG</div>
-                            <div className="invader2 big"></div>
-                        </div>
-                        <div className="side mainright inner"></div>
-                        <div className="side mainleft inner"></div>
-                        <div className="side mainleft">
-                            <div className="logo">CSS<br />GANG</div>
-                            <div className="invader2 big"></div>
-                        </div>
-                        <div className="side mainbottom"></div>
-                        <div className="side mainback">
-                            <div className="powersocket"></div>
-                        </div>
-                    </div>
-                </div>
+        
+<div class="container">
+  <div class="arcade-machine">
+    <div class="shadow"></div>
+    <div class="top">
+      <div class="stripes"></div>
+    </div>
+    <div class="screen-container">
+      <div class="shadow"></div>
+      <div class="screen">
+        <div class="screen-display"></div>
+        <h2>READY PLAYER ONE</h2>
+        <div class="alien-container">
+          <div class="alien">
+            <div class="ear ear-left"></div>
+            <div class="ear ear-right"></div>
+            <div class="head-top"></div>
+            <div class="head">
+              <div class="eye eye-left"></div>
+              <div class="eye eye-right"></div>
             </div>
+            <div class="body"></div>
+            <div class="arm arm-left"></div>
+            <div class="arm arm-right"></div>
+          </div>
         </div>
+      </div>
+      <div class="joystick">
+        <div class="stick"></div>
+      </div>
+    </div>
+    <div class="board">
+      <div class="button button-a"></div>
+      <div class="button button-b"></div>
+      <div class="button button-c"></div>
+    </div>
+    <div class="bottom">
+      <div class="stripes"></div>
+    </div>
+  </div>
+
+</div>
         
         
         );

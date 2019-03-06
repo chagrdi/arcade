@@ -13,7 +13,7 @@ class Classement extends React.Component{
                 <div class="shadow"></div>
                 <div class="screen">
                   <div class="screen-display"></div>
-                  <h2>ARE YOU READY TO PLAY</h2>
+                  <h2>C'EST PARTI THOMAS !!</h2>
                   <div class="alien-container">
                     <div class="alien">
                       <div class="ear ear-left"></div>

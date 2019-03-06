@@ -3,6 +3,7 @@ import './style.scss';
 import Header from './components/Header';
 import Classement from './components/Classement';
 import Footer from './components/Footer';
+import Slider from './components/Slider';
 
 class App extends Component {
   render() {
@@ -10,6 +11,7 @@ class App extends Component {
       <div className="App">
         <Header></Header>
         <Classement></Classement>
+        <Slider></Slider>
         <Footer></Footer>
         
         
